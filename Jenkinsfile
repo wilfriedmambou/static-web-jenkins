@@ -74,7 +74,10 @@ pipeline {
             expression { GIT_BRANCH == 'origin/main' }
         }
 	agent {
-        	label 'docker'
+        	docker {
+               image 'alpine:latest'
+               label 'docker'
+           }
 	}
 
         environment {
@@ -98,7 +101,10 @@ pipeline {
            expression { GIT_BRANCH == 'origin/main' }
        }
 	agent {
-        	label 'docker'
+        	docker {
+               image 'alpine:latest'
+               label 'docker'
+           }
 	}
        environment {
            HEROKU_API_KEY = credentials('heroku_api_key')
