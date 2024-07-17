@@ -98,7 +98,7 @@ pipeline {
            expression { GIT_BRANCH == 'origin/main' }
        }
 	agent {
-        	docker { image 'franela/dind' }
+        	label 'docker'
 	}
        environment {
            HEROKU_API_KEY = credentials('heroku_api_key')
