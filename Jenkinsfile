@@ -74,10 +74,7 @@ pipeline {
             expression { GIT_BRANCH == 'origin/main' }
         }
 	agent {
-        	docker {
-               image 'alpine:latest'
-               label 'docker'
-           }
+        	label 'docker'
 	}
 
         environment {
@@ -86,6 +83,7 @@ pipeline {
         steps {
            script {
              sh '''
+                docker run --rm -v $(pwd):/workspace -w /workspace alpine:latest sh -c "
                 apk --no-cache add npm
                 npm install -g heroku
                 heroku container:login
@@ -101,10 +99,7 @@ pipeline {
            expression { GIT_BRANCH == 'origin/main' }
        }
 	agent {
-        	docker {
-               image 'alpine:latest'
-               label 'docker'
-           }
+        	label 'docker'
 	}
        environment {
            HEROKU_API_KEY = credentials('heroku_api_key')
@@ -112,6 +107,7 @@ pipeline {
        steps {
           script {
             sh '''
+               docker run --rm -v $(pwd):/workspace -w /workspace alpine:latest sh -c "
                apk --no-cache add npm
                npm install -g heroku
                heroku container:login
